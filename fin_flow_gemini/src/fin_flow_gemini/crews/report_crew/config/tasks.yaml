@@ -1,0 +1,19 @@
+visualization_eloborator_task:
+  description: >
+    You have to ingest the plots in "\assets\images" directory ONE BY ONE and then you have to explain that plot such that it answers the question: {user_question}.
+    You have to then write this explanation to a report.md markdown file and ATTACH THE VISUALIZATION IMAGES FROM THE DIRECTORY to the markdown file as well.
+  expected_output: >
+    A report.md markdown file with the explanation of the plots and the visualization images attached to it.
+    Save this as a markdown file in the \assets\report\intermediate_report.md folder.
+  agent: visualization_eloborator
+
+news_merger_task:
+  description: >
+    You have to merge the news article at "\assets\news\news_article.md" with the report.md markdown file.  
+    IMPORTANT: You have to make sure that the report.md markdown file only gets appended by this data - AS IT WOULD ALREADY HAVE THE CONTENT FROM visualization_eloborator_task.
+    You have to make sure that the report.md markdown file is formatted as markdown without '```'.
+  expected_output: >
+    A fully fledged report which cintains previously written content from visualization_eloborator_task and the news article attached to it.
+    Formatted as markdown without '```'
+    Save this as a markdown file in the \assets\report\final_report.md folder.
+  agent: news_merger_agent

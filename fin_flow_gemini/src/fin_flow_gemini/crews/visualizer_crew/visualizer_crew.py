@@ -7,10 +7,15 @@ from typing import List
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
 
+from crewai_tools import CodeInterpreterTool, FileWriterTool
+
+code_interpreter = CodeInterpreterTool()
+file_writer = FileWriterTool()
+
 
 @CrewBase
-class PoemCrew:
-    """Poem Crew"""
+class VisualizerCrew:
+    """Visualizer Crew"""
 
     agents: List[BaseAgent]
     tasks: List[Task]
@@ -24,18 +29,23 @@ class PoemCrew:
     # If you would lik to add tools to your crew, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def poem_writer(self) -> Agent:
+    def visualizer_Agent(self) -> Agent:
         return Agent(
-            config=self.agents_config["poem_writer"],  # type: ignore[index]
+            config=self.agents_config['visualizer_Agent'], # type: ignore[index]
+            tools=[code_interpreter, file_writer],
+            allow_code_execution=True,
+            allow_delegation=True,
+            verbose=True
         )
 
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
+   
     @task
-    def write_poem(self) -> Task:
+    def visualization_task(self) -> Task:
         return Task(
-            config=self.tasks_config["write_poem"],  # type: ignore[index]
+            config=self.tasks_config['visualization_task'], # type: ignore[index]
         )
 
     @crew

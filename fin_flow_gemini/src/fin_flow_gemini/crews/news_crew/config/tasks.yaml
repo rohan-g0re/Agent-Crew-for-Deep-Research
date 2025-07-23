@@ -1,0 +1,27 @@
+retrieve_news_task:
+  description: >
+    Retrieve the most relevant information about {user_question} from the web.
+    Based on the {user_question}, you will need to find websites and articles that are relvant to the data wrt {present_time}.
+  expected_output: >
+    A list with 10 websites urls with the most relevant information about {user_question}.
+    Save this as a json file in the \assets\news\news_urls.json file.
+  agent: retrieve_news
+
+website_scrape_task:    
+  description: >
+    Scrape each of the website urls given in the \assets\news\news_urls.json file for the latest and relevant news and information.
+  expected_output: >
+    Fully scraped websites with all the important information from the website.
+    Save this as a json file in the \assets\news\news_scraped.json file.
+  agent: website_scraper
+
+ai_news_write_task:
+  description: >
+    Based on the content scraped from all the website urls given in the \assets\news\news_scraped.json file, compose a concise and well-articulated article.
+    Write this article such that it intuitively answers the {user_question}. 
+    Enter citations of the websites from where the information is taken from.
+    Write this article to a markdown file.
+  expected_output: >
+    A full fledged news article about {user_question} in markdown format.
+    Save this as a markdown file in the \assets\news\news_article.md file.
+  agent: ai_news_writer
