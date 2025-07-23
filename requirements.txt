@@ -1,0 +1,10 @@
+crewai
+crewai-tools
+python-dotenv
+openai 
+
+# conda create -n fin_analyst_multi_agent python=3.13
+# conda activate fin_analyst_multi_agent
+# pip install -r requirements.txt
+
+# crewai create crew financial_analyst
