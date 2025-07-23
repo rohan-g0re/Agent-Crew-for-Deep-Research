@@ -1,0 +1,21 @@
+[project]
+name = "fin_flow_gemini"
+version = "0.1.0"
+description = "fin_flow_gemini using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]>=0.148.0,<1.0.0",
+]
+
+[project.scripts]
+kickoff = "fin_flow_gemini.main:kickoff"
+run_crew = "fin_flow_gemini.main:kickoff"
+plot = "fin_flow_gemini.main:plot"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "flow"
