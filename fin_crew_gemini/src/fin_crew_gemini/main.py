@@ -18,8 +18,8 @@ def run():
     Run the crew.
     """
     inputs = {
-        'topic': 'AI LLMs',
-        'current_year': str(datetime.now().year)
+        'user_question': 'what is the average volume per week of trading for the last 40 weeks for microsoft, and how is it compared to tesla?',
+        'present_time': datetime.now().strftime("%Y-%m-%d")
     }
     
     try:
@@ -27,6 +27,8 @@ def run():
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 
+
+run()
 
 # def train():
 #     """
@@ -66,5 +68,3 @@ def run():
 
 #     except Exception as e:
 #         raise Exception(f"An error occurred while testing the crew: {e}")
-
-run()

@@ -5,6 +5,8 @@ openai
 
 # conda create -n fin_analyst_multi_agent python=3.13
 # conda activate fin_analyst_multi_agent
-# pip install -r requirements.txt
 
 # crewai create crew financial_analyst
+
+#remove conda env
+# conda remove --name fin_analyst_multi_agent --all

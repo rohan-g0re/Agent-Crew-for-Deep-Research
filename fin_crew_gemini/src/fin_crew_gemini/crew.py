@@ -6,6 +6,10 @@ from typing import List
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
 
+from tools.custom_tool import code_interpreter, file_writer
+
+
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -23,34 +27,25 @@ class FinCrewGemini():
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
-    def researcher(self) -> Agent:
+    def visualizer_Agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['researcher'], # type: ignore[index]
-            verbose=True
-        )
-
-    @agent
-    def reporting_analyst(self) -> Agent:
-        return Agent(
-            config=self.agents_config['reporting_analyst'], # type: ignore[index]
+            config=self.agents_config['visualizer_Agent'], # type: ignore[index]
+            tools=[code_interpreter, file_writer],
+            allow_code_execution=True,
+            allow_delegation=True,
             verbose=True
         )
 
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
+    
     @task
-    def research_task(self) -> Task:
+    def visualization_task(self) -> Task:
         return Task(
-            config=self.tasks_config['research_task'], # type: ignore[index]
+            config=self.tasks_config['visualization_task'], # type: ignore[index]
         )
 
-    @task
-    def reporting_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['reporting_task'], # type: ignore[index]
-            output_file='report.md'
-        )
 
     @crew
     def crew(self) -> Crew:
