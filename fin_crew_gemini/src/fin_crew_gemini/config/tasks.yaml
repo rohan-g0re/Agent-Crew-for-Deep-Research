@@ -1,7 +1,7 @@
 visualization_task:
   description: >
     Understand the user query regarding the stock, then plan thoroughly about what visualizations will be needed to answer this {user_question}.
-    Based on the user query, you will need to write the code which fetches the data from yahoo finance and then handles the data to generate visualizations that will answer the user query.
+    Based on the user query, you will need to WRITE the code which fetches the data from yahoo finance and then handles the data to generate visualizations that will answer the user query and then EXECUTE THE CODE.
     IMPORTANT: The choice of plots should be MATHEMATICALLY RELEVANT and all the calculations should be ACCURATE.
     If the query needs to take into account the present time, then the present time is {present_time}.
   expected_output: >
@@ -9,7 +9,13 @@ visualization_task:
   agent: visualizer_Agent
 
 
-
+news_task:
+  description: >
+    Based on the user query, find the latest news related to {user_question} using serper dev tool.
+    Then save these news as summarized bullets in a markdown file in the \news folder.
+  expected_output: >
+    The news to be saved as summarized bullets in a markdown file in the \news folder.
+  agent: news_agent
 
 
 

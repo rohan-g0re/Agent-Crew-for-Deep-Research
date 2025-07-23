@@ -18,7 +18,7 @@ def run():
     Run the crew.
     """
     inputs = {
-        'user_question': 'what is the average volume per week of trading for the last 40 weeks for microsoft, and how is it compared to tesla?',
+        'user_question': 'what is the ytd profit gain if I had invested 100 dollars in each of the S&P 500 stocks, and how does this compare to gold price?',
         'present_time': datetime.now().strftime("%Y-%m-%d")
     }
     

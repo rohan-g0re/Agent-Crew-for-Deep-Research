@@ -20,7 +20,9 @@
 
 
 
-from crewai_tools import CodeInterpreterTool, FileWriterTool
+from crewai_tools import CodeInterpreterTool, FileWriterTool, SerperDevTool, ScrapeWebsiteTool
 
 code_interpreter = CodeInterpreterTool()
 file_writer = FileWriterTool()
+serper_dev = SerperDevTool()
+scrape_website = ScrapeWebsiteTool()

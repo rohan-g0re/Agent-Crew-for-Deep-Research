@@ -6,7 +6,7 @@ from typing import List
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
 
-from tools.custom_tool import code_interpreter, file_writer
+from tools.custom_tool import code_interpreter, file_writer, serper_dev, scrape_website
 
 
 
@@ -26,6 +26,17 @@ class FinCrewGemini():
     
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
+ 
+    @agent
+    def news_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['news_agent'], # type: ignore[index]
+            tools=[serper_dev, file_writer],
+            # allow_delegation=True,
+            # output_file='news.md',
+            verbose=True
+        )
+
     @agent
     def visualizer_Agent(self) -> Agent:
         return Agent(
@@ -39,13 +50,20 @@ class FinCrewGemini():
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
-    
+
+   
+    @task
+    def news_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['news_task'], # type: ignore[index]
+        )
+   
     @task
     def visualization_task(self) -> Task:
         return Task(
             config=self.tasks_config['visualization_task'], # type: ignore[index]
         )
-
+  
 
     @crew
     def crew(self) -> Crew:
