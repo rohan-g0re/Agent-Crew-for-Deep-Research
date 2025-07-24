@@ -3,13 +3,13 @@ retrieve_news_task:
     Retrieve the most relevant information about {user_question} from the web.
     Based on the {user_question}, you will need to find websites and articles that are relvant to the data wrt {present_time}.
   expected_output: >
-    A list with 10 websites urls with the most relevant information about {user_question}.
+    A list with 2 websites urls with the most relevant information about {user_question}.
     Save this as a json file in the \assets\news\news_urls.json file.
   agent: retrieve_news
 
 website_scrape_task:    
   description: >
-    Scrape each of the website urls given in the \assets\news\news_urls.json file for the latest and relevant news and information.
+    Read the news urls from the \assets\news\news_urls.json file and scrape each of the website urls for the latest and relevant news and information.
   expected_output: >
     Fully scraped websites with all the important information from the website.
     Save this as a json file in the \assets\news\news_scraped.json file.

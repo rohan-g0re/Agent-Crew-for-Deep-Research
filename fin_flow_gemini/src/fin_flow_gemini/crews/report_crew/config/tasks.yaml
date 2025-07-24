@@ -1,6 +1,6 @@
 visualization_eloborator_task:
   description: >
-    You have to ingest the plots in "\assets\images" directory ONE BY ONE and then you have to explain that plot such that it answers the question: {user_question}.
+    You have to ingest the plots in "\assets\images\plot_1.png, \assets\images\plot_2.png, etc." directory ONE BY ONE and then you have to explain that plot such that it answers the question: {user_question}.
     You have to then write this explanation to a report.md markdown file and ATTACH THE VISUALIZATION IMAGES FROM THE DIRECTORY to the markdown file as well.
   expected_output: >
     A report.md markdown file with the explanation of the plots and the visualization images attached to it.

@@ -3,8 +3,12 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 
-from crewai_tools import FileWriterTool
+from crewai_tools import FileWriterTool, FileReadTool
 file_writer = FileWriterTool()
+file_reader = FileReadTool()
+
+from dotenv import load_dotenv
+load_dotenv()
 
 @CrewBase
 class ReportCrew():
@@ -13,26 +17,33 @@ class ReportCrew():
     agents: List[BaseAgent]
     tasks: List[Task]
 
+    agents_config = "config/agents.yaml"
+    tasks_config = "config/tasks.yaml"
+
     @agent
     def visualization_eloborator(self) -> Agent:
         return Agent(
             config=self.agents_config['visualization_eloborator'], # type: ignore[index]
-            tools=[file_writer],
-            verbose=True
+            tools=[file_reader, file_writer],
+            verbose=True,
+            multimodal=True,
+            max_retry_limit=5
         )
 
     @agent
     def news_merger_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['reporting_analyst'], # type: ignore[index]
-            verbose=True
+            config=self.agents_config['news_merger_agent'], # type: ignore[index]
+            tools=[file_reader, file_writer],
+            verbose=True,
+            max_retry_limit=5
         )
 
     @task
     def visualization_eloborator_task(self) -> Task:
         return Task(
             config=self.tasks_config['visualization_eloborator_task'], # type: ignore[index]
-            output_file='report.md'
+            output_file='/assets/report/report.md'
         )
 
     @task
@@ -40,7 +51,7 @@ class ReportCrew():
         return Task(
             config=self.tasks_config['news_merger_task'], # type: ignore[index]
             depends_on=['visualization_eloborator_task'],
-            output_file='report.md'
+            output_file='/assets/report/report.md'
         )
 
     @crew

@@ -35,7 +35,9 @@ class VisualizerCrew:
             tools=[code_interpreter, file_writer],
             allow_code_execution=True,
             allow_delegation=True,
-            verbose=True
+            verbose=True,
+            max_retry_limit=5,
+            reasoning=True
         )
 
     # To learn more about structured task outputs,

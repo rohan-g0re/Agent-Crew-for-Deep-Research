@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from pydantic import BaseModel
 from datetime import datetime
+import time
 
 from crewai.flow import Flow, listen, start, and_
 
@@ -15,8 +16,8 @@ load_dotenv()
 class ReportState(BaseModel):
     user_question: str = ""
     present_time: str = ""  
-    visualizer_result: str = "\assets\images"
-    news_result: str = "\assets\news\news_article.md"
+    visualizer_result: str = "./assets/images/"
+    news_result: str = "./assets/news/news_article.md"
 
 class ReportFlow(Flow[ReportState]):
 
@@ -25,36 +26,72 @@ class ReportFlow(Flow[ReportState]):
         """Kickoff visualizer crew to generate visualizations"""
         print("Kicking off visualizer crew")
         
-        result = (
-            VisualizerCrew()
-            .crew()
-            .kickoff(inputs={
-                "user_question": self.state.user_question,
-                "present_time": self.state.present_time
-            })
-        )
+        # Try visualizer crew with retries
+        attempt = 0
+        while attempt < 3:
+            try:
+                result = (
+                    VisualizerCrew()
+                    .crew()
+                    .kickoff(inputs={
+                        "user_question": self.state.user_question,
+                        "present_time": self.state.present_time
+                    })
+                )
+                print("Visualizer crew completed")
+                break
+            except Exception as e:
+                attempt += 1
+                print(f"Visualizer crew failed (attempt {attempt}/3): {e}")
+                if attempt < 3:
+                    time.sleep(2)  # 2 second delay after failure
+                else:
+                    print("Visualizer failed even after 3 tries")
+
+        # Try news crew with retries
+        attempt = 0
+        while attempt < 3:
+            try:
+                result = (
+                    NewsCrew()
+                    .crew()
+                    .kickoff(inputs={
+                        "user_question": self.state.user_question,
+                        "present_time": self.state.present_time
+                    })
+                )
+                print("News crew completed")
+                break
+            except Exception as e:
+                attempt += 1
+                print(f"News crew failed (attempt {attempt}/3): {e}")
+                if attempt < 3:
+                    time.sleep(2)  # 2 second delay after failure
+                else:
+                    print("News failed even after 3 tries")
         
-        print("Visualizer crew completed")
+        print("Visualizer and news crews completed")
         return "visualizer_completed"
 
-    @start()
-    def news_crew_kickoff(self):
-        """Kickoff news crew to generate news article"""
-        print("Kicking off news crew")
-        
-        result = (
-            NewsCrew()
-            .crew()
-            .kickoff(inputs={
-                "user_question": self.state.user_question,
-                "present_time": self.state.present_time
-            })
-        )
-        
-        print("News crew completed")
-        return "news_completed"
 
-    @listen(and_(visualizer_crew_kickoff, news_crew_kickoff))
+    # @listen(visualizer_crew_kickoff)
+    # def news_crew_kickoff(self):
+    #     """Kickoff news crew to generate news article"""
+    #     print("Kicking off news crew")
+        
+    #     result = (
+    #         NewsCrew()
+    #         .crew()
+    #         .kickoff(inputs={
+    #             "user_question": self.state.user_question,
+    #             "present_time": self.state.present_time
+    #         })
+    #     )
+        
+    #     print("News crew completed")
+    #     return "news_completed"
+
+    @listen(visualizer_crew_kickoff)
     def report_crew_kickoff(self):
         """Kickoff report crew after both visualizer and news crews are completed"""
         print("Both visualizer and news crews completed. Kicking off report crew")
