@@ -5,5 +5,5 @@ visualization_task:
     IMPORTANT: The choice of plots should be MATHEMATICALLY RELEVANT and all the calculations should be ACCURATE.
     If the query needs to take into account the present time, then the present time is {present_time}.
   expected_output: >
-    The plots of matplotlib to be saved as images in the \assets\images folder.
+    The plots of matplotlib to be saved as images in the "\assets\images" folder with names like plot_1.png, plot_2.png, etc.
   agent: visualizer_Agent

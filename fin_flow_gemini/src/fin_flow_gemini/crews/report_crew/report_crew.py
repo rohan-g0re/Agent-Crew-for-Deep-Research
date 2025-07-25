@@ -43,7 +43,7 @@ class ReportCrew():
     def visualization_eloborator_task(self) -> Task:
         return Task(
             config=self.tasks_config['visualization_eloborator_task'], # type: ignore[index]
-            output_file='/assets/report/report.md'
+            output_file='/assets/report/intermediate_report.md'
         )
 
     @task
@@ -51,7 +51,7 @@ class ReportCrew():
         return Task(
             config=self.tasks_config['news_merger_task'], # type: ignore[index]
             depends_on=['visualization_eloborator_task'],
-            output_file='/assets/report/report.md'
+            output_file='/assets/report/final_report.md'
         )
 
     @crew
