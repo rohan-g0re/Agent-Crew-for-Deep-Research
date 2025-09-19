@@ -10,32 +10,32 @@ FinFlow Gemini delivers institutional-grade financial analysis through three spe
 
 ```mermaid
 graph TD
-    A[User Query: Financial Analysis Request] --> B[ReportFlow Orchestrator]
+    A[User's Financial Query] --> B[Report Flow Orchestrator]
     
     B --> C[Visualizer Crew]
     B --> D[News Crew]
     
-    subgraph VIZ [" -- Visualizer Crew -- "]
-        C --> C2[Executor Agent: Fetching Market Data]
+    subgraph VIZ [" "]
+        C --> C2[Executor Agent fetching market data]
         C2 --> C3[Executor Agent for Statistical Visulizations]
         C3 --> C4[Save Generated Visualizxations to /assets/images/]
     end
     
-    subgraph NEWS ["News Crew"]
+    subgraph NEWS [" "]
         D --> D1[News Retriever Agent]
         D1 --> D3[Website Scraper Agent]
-        D3 --> D5[AI News Writer Agent]
-        D5 --> D7[Generated article saved to /assets/news/news_article.md]
+        D3 --> D5[News Writer Agent]
+        D5 --> D7[Generated articles saved to /assets/news/news_article.md]
     end
     
     C4 --> E[Report Crew]
     D7 --> E
     
-    subgraph REPORT ["Report Crew"]
-        E --> E1[Visualization Elaborator Agent]
+    subgraph REPORT [" "]
+        E --> E1[Visualization Commentator/Elaborator Agent]
         E1 --> E4[Save intermediate report FOR EVERY VISUALIZATION in /assets/report/intermediate_report.md]
         
-        E4 --> E5[News Merger Agent combines news reports and visualizations into a final report]
+        E4 --> E5[News Merger Agent combines reports and visualizations into a final report]
     end
     E5 --> F[Final Report: /assets/report/final_report.md]
     
