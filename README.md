@@ -41,9 +41,21 @@ graph TD
     E6 --> E7[Generate Final Report]
     E7 --> F[Final Report: /assets/report/final_report.md]
     
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style C fill:#e8f5e8
+    style A fill:#fce484
+    style B fill:#fce484
+
+    style C fill:#01a048
+    style C1 fill:#e8f5e8
+    style C2 fill:#e8f5e8
+    style C3 fill:#e8f5e8
+    style C4 fill:#e8f5e8
+
+
+    e8f5e8
+
+
+
+
     style D fill:#fff3e0
     style E fill:#fce4ec
     style F fill:#e0f2f1
