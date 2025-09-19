@@ -15,23 +15,17 @@ graph TD
     B --> C[Visualizer Crew]
     B --> D[News Crew]
     
-    subgraph VIZ ["Visualizer Crew"]
-    
-        C --> C1[Visualizer Agent]
-        C1 --> C2[Fetch Yahoo Finance Data]
-        C2 --> C3[Generate Statistical Plots]
-        C3 --> C4[Save Images to /assets/images/]
+    subgraph VIZ [" -- Visualizer Crew -- "]
+        C --> C2[Executor Agent: Fetching Market Data]
+        C2 --> C3[Executor Agent for Statistical Visulizations]
+        C3 --> C4[Save Generated Visualizxations to /assets/images/]
     end
     
     subgraph NEWS ["News Crew"]
-
         D --> D1[News Retriever Agent]
-        D1 --> D2[Find Relevant News URLs]
-        D2 --> D3[Website Scraper Agent]
-        D3 --> D4[Extract News Content]
-        D4 --> D5[AI News Writer Agent]
-        D5 --> D6[Generate News Article]
-        D6 --> D7[Save to /assets/news/news_article.md]
+        D1 --> D3[Website Scraper Agent]
+        D3 --> D5[AI News Writer Agent]
+        D5 --> D7[Generated article saved to /assets/news/news_article.md]
     end
     
     C4 --> E[Report Crew]
@@ -39,15 +33,11 @@ graph TD
     
     subgraph REPORT ["Report Crew"]
         E --> E1[Visualization Elaborator Agent]
-        E1 --> E2[Analyze Generated Plots]
-        E2 --> E3[Create Intermediate Report]
-        E3 --> E4[Save to /assets/report/intermediate_report.md]
+        E1 --> E4[Save intermediate report FOR EVERY VISUALIZATION in /assets/report/intermediate_report.md]
         
-        E4 --> E5[News Merger Agent]
-        E5 --> E6[Combine News + Visualizations]
-        E6 --> E7[Generate Final Report]
+        E4 --> E5[News Merger Agent combines news reports and visualizations into a final report]
     end
-    E7 --> F[Final Report: /assets/report/final_report.md]
+    E5 --> F[Final Report: /assets/report/final_report.md]
     
     style A fill:#fce484
     style B fill:#fce484
